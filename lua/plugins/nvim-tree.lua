@@ -10,10 +10,8 @@ local function my_on_attach(bufnr)
 
   -- custom mappings
   vim.keymap.set('n', '?',     api.tree.toggle_help, opts('Help'))
-end
 
--- Ctrl-N to toggle the tree map
-vim.keymap.set('n', '<C-n>', '<Cmd>NvimTreeToggle<CR>')
+end
 
 return {
   "nvim-tree/nvim-tree.lua",
@@ -22,12 +20,19 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
+  keys = {
+    { '<C-n>', '<Cmd>NvimTreeToggle<CR>', desc = 'Open neo tree' }
+  },
   config = function()
     require("nvim-tree").setup {
-	view = {
-	    side = "right"
-	},
-        on_attach = my_on_attach,
+      filters = {
+        custom = {"^\\.git"}
+      },
+      view = {
+        side = "right",
+        width = 50
+      },
+      on_attach = my_on_attach,
     }
   end,
 }
