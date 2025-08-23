@@ -27,16 +27,17 @@ return {
     local cmp = require('cmp')
     cmp.setup({
       sources = {
-        { name = "codeium" } ,
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'buffer' },
+        { name = 'copilot' },
         { name = 'path' },
       },
       mapping = {
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
       },
     })
+
     lsp.setup()
 
     -- Python LSP
@@ -45,7 +46,9 @@ return {
         pylsp = {
           plugins = {
             pycodestyle = {
-              -- ignore = {'W391'},
+              ignore = {
+                'E501', -- line too long
+              },
               maxLineLength = 88
             }
           }
